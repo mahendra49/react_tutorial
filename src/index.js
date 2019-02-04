@@ -8,6 +8,5 @@ const App = ()=>{
 	return <div> Hi there </div>;
 }
 
-
 //take the component and display it
 ReactDOM.render(<App/> , document.querySelector('#root'));
