@@ -1,12 +1,19 @@
-//import react and react-dom
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './components/App';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+import { createStore , applyMiddleware } from 'redux';
+import reducers from './reducers';
 
 
-//create a react component
-const App = ()=>{
-	return <div> Hi there </div>;
-}
+const store = createStore(reducers , applyMiddleware(thunk));
+//const store = createStore(reducers);
 
-//take the component and display it
-ReactDOM.render(<App/> , document.querySelector('#root'));
+
+ReactDOM.render(
+	<Provider store = {store}>
+		<App/>
+	</Provider>,
+	document.querySelector("#root")
+);
