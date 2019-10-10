@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        canvas {
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="h1" align="center"></h1>
+    <canvas onclick="incr()"></canvas>
+
+    <button onclick="decr()">INCR SPEED</button>
+    <button onclick="incr()">DECR SPEED</button>
+
+
+    <button onclick="Yaxis()"> Along Y axis </button>
+    
+    <button onclick="Xaxis()">Along X axis</button>
+
+    <button onclick="Zaxis()">Along Z axis</button>
+
+    <button onclick="print()">print</button>
+
+    <script>
+        let canvas = document.querySelector("canvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+
+        let timeout = 30;
+        let timer;
+        let g = canvas.getContext("2d");
+        
+        //vertices
+        let nodes = [[-50, -50, -50], [-50, -50, 50], [-50, 50, -50], [-50, 50, 50],
+        [50, -50, -50], [50, -50, 50], [50, 50, -50], [50, 50, 50]];
+        
+        //join vertices
+        let edges = [[0, 1], [1, 3], [3, 2], [2, 0], [4, 5], [5, 7], [7, 6],
+        [6, 4], [0, 4], [1, 5], [2, 6], [3, 7]];
+            
+
+
+        // This is for mouse direction ie..mousemovedleft, mousemovedright , mousemovedtop
+        var direction = "East";
+        var oldx = 0;
+        var oldy = 0;
+        mousemovemethod = function (e) {
+            console.log(timeout);
+            if (e.pageX > oldx && e.pageY == oldy) {
+                if(direction=='East'){
+                    incr(50  , "X");
+                    console.log("accerlate");
+                }
+                else{
+                    console.log("deaccleration");
+                    decr(50);
+                }
+                direction="East";
+                Xaxis();
+                document.getElementById('h1').innerHTML = "along X axis";
+            }
+            else if (e.pageX == oldx && e.pageY > oldy) {
+                if(direction == "South"){
+                    incr(50 , "Z");
+                    console.log("accerlate");
+                }
+                else{
+                    console.log("deaccleration");
+                    decr(50);
+                }
+                direction="South";
+                document.getElementById('h1').innerHTML = "along Z axis";
+                Zaxis();
+            }
+            else if (e.pageX == oldx && e.pageY < oldy) {
+                if(direction == "North"){
+                    console.log("accerlate");
+                    incr(50 , "Z");
+                }
+                else{
+                    console.log("deaccleration");
+                    decr(50);
+                }
+                direction="North";
+                document.getElementById('h1').innerHTML = "along Z axis";
+                Zaxis();
+            }
+            else if (e.pageX < oldx && e.pageY == oldy) {
+                if(direction == "West"){
+                    incr(50 , "Y");
+                }
+                else{
+                    decr(50);
+                }
+                direction="West";
+                document.getElementById('h1').innerHTML = "along Y axis";
+                Yaxis();
+            }
+                    
+            oldx = e.pageX;
+            oldy = e.pageY;
+            
+        }
+
+        document.addEventListener('mousemove', mousemovemethod);
+
+
+        function rotateCuboidAlongZ(rotationangle ){
+            
+            var sinX = Math.sin(rotationangle);
+            var cosX = Math.cos(rotationangle);
+ 
+            nodes.forEach( (node)=> {
+                var x = node[0];
+                var y = node[1];
+                var z = node[2];
+ 
+                node[0] = x* cosX - y * sinX;
+                node[1] = y* cosX + x * sinX;
+ 
+            });     
+        }
+
+        function Zaxis(){
+            //console.log("along z axis");
+            clearInterval(timer);
+            timer = setInterval(function(){ 
+                rotateCuboidAlongZ(Math.PI / 180);
+                drawCuboid();
+            } , timeout);
+        } 
+
+        function rotateCuboidAlongY(rotationangle ){
+            
+            var sinX = Math.sin(rotationangle);
+            var cosX = Math.cos(rotationangle);
+ 
+            nodes.forEach((node)=> {
+                var x = node[0];
+                var y = node[1];
+                var z = node[2];
+ 
+                node[0] = x * cosX + z * sinX;
+                node[2] = z* cosX - x * sinX;
+ 
+            });     
+        }
+
+
+        function Yaxis(){
+            //console.log("along y axis");
+            clearInterval(timer);
+            timer = setInterval(function(){ 
+                rotateCuboidAlongY(Math.PI / 180);
+                drawCuboid();
+            } , timeout);
+        } 
+
+        function Xaxis(){
+            //console.log("along x axis");
+            clearInterval(timer);
+            timer = setInterval(function(){
+                rotateCuboidAlongX(Math.PI / 180);
+                drawCuboid();
+            } , timeout);
+        }
+
+
+        function incr(giventime , dir){
+            //console.log(timeout);
+
+            if(dir=="S" || dir=="N"){
+                clearInterval(timer);
+                timeout -=30;
+                timer = setInterval( function(){
+                    rotateCuboidAlongY(Math.PI / 180);
+                    drawCuboid();
+                } , timeout);
+            }
+            else if(dir=="W"){
+                clearInterval(timer);
+                timeout -=30;
+                timer = setInterval( function(){
+                    rotateCuboidAlongX(Math.PI / 180);
+                    drawCuboid();
+                } , timeout);
+            }
+            else{
+                clearInterval(timer);
+                timeout -=30;
+                timer = setInterval( function(){
+                    rotateCuboidAlongZ(Math.PI / 180);
+                    drawCuboid();
+                } , timeout);
+            }
+        }
+
+        function decr(giventime){
+
+            if(giventime) timeout = timeout - giventime;
+            else timeout -=100;
+
+            //console.log(timeout);
+            clearInterval(timer);
+            timer = setInterval( function(){
+                rotateCuboidAlongX(Math.PI / 180);
+                drawCuboid();
+            } , timeout);
+        }
+
+ 
+        function rotateCuboidAlongX(rotationangle) {
+            
+            //console.log("along X axis");
+
+            var sinX = Math.sin(rotationangle);
+            var cosX = Math.cos(rotationangle);
+ 
+            
+            nodes.forEach( (node) =>{
+                
+                var x = node[0];
+                var y = node[1];
+                var z = node[2];
+ 
+                node[1] = y * cosX - z * sinX;
+                node[2] = z * cosX + y * sinX;
+
+            });
+        }
+        
+        function drawCuboid() {
+            //console.log("drawing drawCuboid");
+
+            g.save();
+ 
+            g.clearRect(0, 0, canvas.width, canvas.height);
+            g.translate(canvas.width / 2, canvas.height / 2);
+            g.strokeStyle = "blue";
+            g.fillStyle = '#bbb';
+            g.strokeStyle = '#000';
+
+            g.lineWidth = 2;
+            
+
+            g.beginPath();
+ 
+            edges.forEach(function (edge) {
+                var p1 = nodes[edge[0]];
+                var p2 = nodes[edge[1]];
+                //console.log(p1);
+                g.moveTo(p1[0], p1[1]);
+                g.lineTo(p2[0], p2[1]);
+            });
+            
+
+
+            g.closePath();
+            g.stroke();
+           
+
+            g.shadowOffsetX = 10;
+            g.shadowOffsetY = 10;
+            g.shadowBlur    = 4;
+            g.shadowColor   = 'rgba(180, 180, 180, 0.8)';
+            // fill shape, draw stroke
+            g.fill();
+            g.stroke();
+            g.closePath();
+            g.restore();
+            
+            g.restore();
+        }
+ 
+        
+        rotateCuboidAlongX(Math.PI / 180);
+ 
+        timer = setInterval(function() {
+            rotateCuboidAlongX(Math.PI / 180);
+            drawCuboid();
+        }, timeout);
+
+
+        function print() { 
+
+            //console.log(nodes);
+
+        }
+ 
+    </script>
+ 
+</body>
+</html>
