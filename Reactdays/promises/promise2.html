@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+		var promise=new Promise(function(resolve,reject){
+			 reject("Fail");
+		});
+		promise.then(function(message){
+				console.log(message);
+		}).catch(function(error_message){
+				console.log("Error:"+error_message);
+		});
+	</script>
+</head>
+<body>
+
+</body>
+</html>

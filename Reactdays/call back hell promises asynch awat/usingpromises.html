@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+	    var prom=new Promise(function(resolve,reject){
+	    		resolve();
+	    });
+	    prom.then(function(){
+	    		console.log("This is one");
+	    }).then(function(){
+	    		console.log("This is two");
+	    }).then(function(){
+	    		console.log("This is three");	
+	    }).catch(function(error){
+	    	console.log(error);
+	    });
+	</script>
+</head>
+<body>
+
+</body>
+</html>

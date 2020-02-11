@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+		class Car
+		{
+			constructor(arg1)
+			{
+				this.name=arg1;
+			}
+			static display()
+			{
+				console.log("This method is declared as static");
+			}
+		}
+		var c=new Car("Ford Mustang");
+		console.log("Car name:"+c.name);
+		Car.display();
+		//c.display();
+	</script>
+</head>
+<body>
+
+</body>
+</html>

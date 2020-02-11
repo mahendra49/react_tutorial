@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+		var [name,setName]=useState("hai");
+		function useState(arg) {
+			var arr=[arg,function(arg1){
+					name=arg1;
+			}]
+			return arr;
+		}
+		
+		console.log(name);
+		setName("by");
+		console.log(name);
+		
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+		  function show(delay,callbackOne) {
+		  	  setTimeout(()=>{
+		  	  	  callbackOne(2000,function(){
+		  	  	  	   console.log("This is callbackTwo");
+		  	  	  });
+		  	  },delay);
+		  }
+		  show(1000,function(delaytwo,callbackTwo){
+		  	    console.log("Hai This is callbackOne");
+		  	    setTimeout(()=>{
+		  	    	  callbackTwo();
+		  	    },delaytwo);
+		  });		  
+	</script>
+</head>
+<body>
+
+</body>
+</html>

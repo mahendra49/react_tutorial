@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+		var show=(arg1,arg2) => arg1+arg2;
+		console.log(show(10,20));
+
+		var callme=(arg1,arg2) => {
+			var temp=arg1+arg2;
+			temp=temp+100;
+			return temp;
+		}
+		console.log(callme(10,20));
+
+		var display= ()=>{
+			var temp=100;
+			temp=temp+200;
+			return temp
+		} 
+		console.log(display());
+
+		var get= arg1 => {
+
+			var temp=100;
+			temp=temp+arg1;
+			return temp;
+		}
+		console.log(get(100));
+	</script>
+</head>
+<body>
+
+</body>
+</html>

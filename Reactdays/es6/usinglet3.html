@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+		//"use strict" 
+		let num=300;
+		function test() 
+		{ 
+		   let num = 100 
+		   console.log("value of num in test() "+num)
+		   { 
+		      console.log("Inner Block begins") 
+		      let num = 200 
+		      console.log("value of num : "+num)  
+		   } 
+		   console.log("value of num in test: "+num)  
+		} 
+		test();
+		console.log("value of NUM  outside function:"+ num);
+	</script>
+</head>
+<body>
+
+</body>
+</html>

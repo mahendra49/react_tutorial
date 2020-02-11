@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+		var show=(function(){ 
+			    var count=10; 
+			   return function(){
+			   	    count=count+1;
+			   		return count;
+			   }
+		}());
+		console.log(show());
+		console.log(show());
+		console.log(show());
+		console.log(show());
+		console.log(count);
+	</script>
+</head>
+<body>
+
+</body>
+</html>
