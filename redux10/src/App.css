@@ -1,0 +1,9 @@
+.container>button{
+   display: block;
+   margin: 10px auto;
+   width: 25%;
+   height: 50px;
+   border: 0px;
+   background-color: chocolate;
+   border-radius: 3px;
+}
